@@ -1,0 +1,173 @@
+<html>
+<head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container{
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .header{
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            border-bottom: 2px solid grey;
+            margin-bottom: 30px;
+        }   
+
+        .numpad{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin-bottom: 10px;
+        }
+        
+        .pad{
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+        }
+
+        .pad:focus, .pad:hover{
+            background-color: #bdbdbd;
+        }
+
+        .oper{
+            font-weight: 500;
+            font-size: 32px;
+            color: 00838f;
+        }
+
+        .rem{
+            color: orange;
+        }
+
+        .input{
+            height: 250px;
+            font-size: 50px;
+            font-weight: 300;
+            border: none;
+            text-align: right;
+            padding-right: 8%;
+            color: #424242;
+        }
+
+        .input:focus{
+            outline: none;
+        }
+
+        .ans{
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            padding-right: 20px;
+            height: 100px;
+            font-weight: 400;
+            color: #616161;
+            font-size: 35px;
+
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="input" class="input">
+            <div class="ans" id="result"></div>
+        </div>
+        <div class="numpad">
+            <button class="pad rem" id="clear">C</button>
+            <button class="pad">%</button>
+            <button class="pad rem" id="delete">X</button>
+            <button class="pad oper l">/</button>
+        </div>
+        <div class="numpad">
+            <button class="pad l">7</button>
+            <button class="pad l">8</button>
+            <button class="pad l">9</button>
+            <button class="pad oper l">x</button>
+        </div>
+        <div class="numpad">
+            <button class="pad l">4</button>
+            <button class="pad l">5</button>
+            <button class="pad l">6</button>
+            <button class="pad oper l">-</button>
+        </div>
+        <div class="numpad">
+            <button class="pad l">1</button>
+            <button class="pad l">2</button>
+            <button class="pad l">3</button>
+            <button class="pad oper l">+</button>
+        </div>
+        <div class="numpad">
+            <button class="pad">+/-</button>
+            <button class="pad l">0</button>
+            <button class="pad l">.</button>
+            <button class="pad oper" id="equal">=</button>
+        </div>
+    </div>
+
+<script>
+    var numbers = document.getElementsByClassName("l")
+
+    var input = document.getElementById("input")
+    var clear = document.getElementById("clear")
+    var del = document.getElementById("delete")
+    var result = document.getElementById("result")
+    var equal = document.getElementById("equal")
+
+    for(var i = 0; i<numbers.length; i++){
+        numbers[i].addEventListener("click", AppendNumber)
+    }
+   
+    clear.addEventListener("click", Clear )    
+    equal.addEventListener("click", Calculate)
+    del.addEventListener("click", Delete)
+
+    function AppendNumber(){
+        input.value = input.value + this.innerText
+    }
+
+    function Clear(){
+        input.value = ""
+    }
+
+    function Delete(){
+        result.innerHTML = ""
+        input.value  = ""
+    }
+
+    function Calculate(){
+        var str = input.value
+        str = str.replace( /x/g, "*")
+        try{
+            var answer = eval(str)
+            result.innerHTML = answer
+        }
+        catch(err){
+            result.innerHTML = "Math Error"
+        }
+
+    }
+
+
+</script>
+</body>
+
+
+
+</html>
